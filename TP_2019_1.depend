@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1560378545 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\main.cpp
+	<iostream>
+	"Abre_arquivo.h"
+
+1560376015 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\abre_arquivo.cpp
+	"Abre_arquivo.h"
+
+1560376001 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\abre_arquivo.h
+	<iostream>
+	<fstream>
+	<string>
+	<cctype>
+	<algorithm>
+	<map>
+
