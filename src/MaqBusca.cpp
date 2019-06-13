@@ -1,32 +1,41 @@
-#include "Abre_arquivo.h"
+#include "MaqBusca.h"
 
-Abre_arquivo::Abre_arquivo(){
+MaqBusca::MaqBusca(){
     linhas_ = 0;
+    coordenadaW = 0;
 }
 
-Abre_arquivo::~Abre_arquivo(){
+MaqBusca::~MaqBusca(){
 
 }
 
+// abre o arquivo
+void MaqBusca::Abrearquivo(){
+    bool repeticao_ = false;
+    do{
+        cout << "---------------------------------------------" << endl;
+        cout << "Digite o nome do arquivo a ser aberto: \n" << "-> ";
+        cin >> nomearquivo_;
 
-void Abre_arquivo::Abrearquivo(){
+        nomearquivo_ = nomearquivo_ + ".txt";
+        leitura.open(nomearquivo_.c_str());
 
-            cout << "---------------------------------------------" << endl;
-            cout << "Digite o nome do arquivo a ser aberto: \n" << "-> ";
-            cin >> nomearquivo_;
-
-           nomearquivo_ = nomearquivo_ + ".txt";
-
-            leitura.open(nomearquivo_.c_str());
+        if (leitura.fail()){
+            cout << "Erro de leitura de arquivo! Digite novamente o nome do arquivo." << endl;
+        }else{
+            repeticao_ = true;
+        }
+    }while(repeticao_ == false);
 }
 
-void Abre_arquivo::Fechaaquivo(){
+// fecha o arquivo
+void MaqBusca::Fechaaquivo(){
     leitura.close();
     cout << "---->Fechamento do arquivo realizado com sucesso!" << endl;
 }
 
-// Verifica quantos linhas est�o no arquivo de entrada
-void Abre_arquivo::Contagemlinhas(){
+// Verifica quantos linhas estao no arquivo de entrada
+void MaqBusca::Contagemlinhas(){
     ifstream contagem;
     string logs_;
 
@@ -39,12 +48,13 @@ void Abre_arquivo::Contagemlinhas(){
     contagem.close();
 }
 
-void Abre_arquivo::Getlinhas(){
+// pega o numero de linhas
+void MaqBusca::Getlinhas(){
     cout << linhas_ << endl;
 }
 
 // Troca caixa alta para caixa baixa e remove caracteres
-string Abre_arquivo::Tratamento(string palavra){
+string MaqBusca::Tratamento(string palavra){
     transform(palavra.begin(), palavra.end(), palavra.begin(), ptr_fun <int, int> ( tolower ) );
     palavra.erase(remove_if(palavra.begin(), palavra.end(), [](char c){ return c==','||c=='.'|| c=='!'||
                             c=='-'|| c=='?'||c== ':' ||c== ';' ||c== 39 ||c== '[' ||c== ']' ||c== '{' ||c== '}' ||
@@ -54,14 +64,13 @@ string Abre_arquivo::Tratamento(string palavra){
 }
 
 
-//
-void Abre_arquivo::ListaDocumentos(){
-    Abre_arquivo A;
+// faz o indice invertido
+void MaqBusca::IndiceInvertido(){
+    MaqBusca A;
 
     string palavra;
     string palavra_tratada;
 
-//    vector<string> vetor_teste;
     vector<string>::iterator it;
 
     while (leitura >> palavra){
@@ -73,46 +82,50 @@ void Abre_arquivo::ListaDocumentos(){
         } else { // palavra ja existe
             it = find(indiceinvertido[palavra_tratada].begin(), indiceinvertido[palavra_tratada].end(), nomearquivo_);
 
-            // testa se o arquivo ja foi adicionado
+            // testa se o arquivo ja foi adicionado ao map
             if (it == indiceinvertido[palavra_tratada].end()){
                 indiceinvertido[palavra_tratada].push_back(nomearquivo_);
-
             }
         }
 
+        // faz a contagem de quantas vezes a palavra apareceu
         if (contagempalavra.find(palavra_tratada) == contagempalavra.end()){
             contagempalavra[palavra_tratada] = 1;
         } else {
             contagempalavra[palavra_tratada]++;
         }
     }
+
 //    A.ImprimirMap(contagempalavra);
     A.ImprimirMap(indiceinvertido);
 
 }
 
-void Abre_arquivo::ImprimirMap(map<string,int> m){
+// imprime o map da contagem
+void MaqBusca::ImprimirMap(map<string,int> m){
     for (auto itr = m.begin(); itr != m.end(); ++itr) {
         cout << itr->first << '\t' << itr->second << '\n';
     }
 }
 
-void Abre_arquivo::ImprimirMap(map<string,vector<string>> m){
-        for( auto itr = m.begin(); itr != m.end(); ++itr) {
-            cout << itr->first << ": ";
-            for( auto eptr=itr->second.begin(); eptr!=itr->second.end(); eptr++){
-                cout << *eptr << " ";
-            }
-            cout << endl;
+// imprime o indice invertido
+void MaqBusca::ImprimirMap(map<string,vector<string>> m){
+    for( auto itr = m.begin(); itr != m.end(); ++itr) {
+        cout << itr->first << ": ";
+        for( auto eptr=itr->second.begin(); eptr!=itr->second.end(); eptr++){
+            cout << *eptr << " ";
         }
+        cout << endl;
+    }
 }
 
-void Abre_arquivo::Pesquisa(string palavra){
+// faz pesquisa de uma palavra no indice invertido
+void MaqBusca::Pesquisa(string palavra){
     map<string,vector<string>>::iterator it;
 
     it = indiceinvertido.find(palavra);
     if (it->first == palavra){
-        cout << "Documentos: " << endl;
+        cout << "Documentos: "; //<< endl;
         for( auto eptr=it->second.begin(); eptr!=it->second.end(); eptr++){
                 cout << *eptr << " " << endl;
         }
@@ -121,9 +134,8 @@ void Abre_arquivo::Pesquisa(string palavra){
     }
 }
 
-
-//Teste de abertura de arquivo
-void Abre_arquivo::Coordenadas(string palavra){
+//Faz calculo da coordenada da palavra
+void MaqBusca::Coordenadas(string palavra, int ndocs){
     int N;
     map<string,int>::iterator it;
     it = contagempalavra.find(palavra);
@@ -131,9 +143,7 @@ void Abre_arquivo::Coordenadas(string palavra){
     N = it->second;
 
     cout << "QTD " << N << endl;
-
-    int ndocs;
-    ndocs = 1;
+    cout << "Docs " << ndocs << endl;
 
     double idf;
     idf = log10(N/ndocs);
@@ -141,17 +151,17 @@ void Abre_arquivo::Coordenadas(string palavra){
     cout << "log: " << idf << endl;
 
     // coordenadas de um vetor
-//    double coordenadaW;
     coordenadaW = (N * idf);
 
     cout << "W: " << coordenadaW << endl;
 }
 
-double Abre_arquivo::Ranking(){
+// faz calculo do ranking
+double MaqBusca::Ranking(){
     double cosseno;
 
     cosseno = (coordenadaW * coordenadaW) / (sqrt((pow(coordenadaW,2)))*sqrt((pow(coordenadaW,2))));
     cout << "Coordenada: " << coordenadaW << endl;
-    return 1;
 
+    return coordenadaW;
 }

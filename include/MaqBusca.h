@@ -1,5 +1,5 @@
-#ifndef ABRE_ARQUIVO_H
-#define ABRE_ARQUIVO_H
+#ifndef MAQBUSCA_H
+#define MAQBUSCA_H
 
 #include <iostream>
 #include <fstream>
@@ -22,27 +22,25 @@ using std::string;
 using std::ptr_fun;
 using std::map;
 using std::vector;
-//using std::push_back;
 using std::pair;
 using std::sqrt;
 using std::pow;
 
-class Abre_arquivo{
+class MaqBusca{
     public:
-        Abre_arquivo();
-        ~Abre_arquivo();
+        MaqBusca();
+        ~MaqBusca();
         void Abrearquivo();
         void Fechaaquivo();
         void Contagemlinhas();
         void Getlinhas();
         string Tratamento(string palavra);
-        void ListaDocumentos();
+        void IndiceInvertido();
         void ImprimirMap(map<string, int> m);
         void ImprimirMap(map<string, vector<string>> m);
         void Pesquisa(string palavra);
-        void Coordenadas(string palavra_user);
+        void Coordenadas(string palavra, int ndocs);
         double Ranking();
-
 
     private:
         string nomearquivo_;
@@ -51,6 +49,8 @@ class Abre_arquivo{
         map <string, vector<string>> indiceinvertido;
         map <string, int> contagempalavra;
         double coordenadaW;
+
+//        friend class Teste;
 };
 
-#endif // ABRE_ARQUIVO_H
+#endif // MAQBUSCA_H

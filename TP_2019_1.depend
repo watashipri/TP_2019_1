@@ -1,12 +1,25 @@
 # depslib dependency file v1.0
-1560396398 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\main.cpp
+1560433064 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\main.cpp
 	<iostream>
+	"MaqBusca.h"
+
+1560421109 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\abre_arquivo.cpp
 	"Abre_arquivo.h"
 
-1560398260 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\abre_arquivo.cpp
-	"Abre_arquivo.h"
+1560421060 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\abre_arquivo.h
+	<iostream>
+	<fstream>
+	<string>
+	<cmath>
+	<cctype>
+	<algorithm>
+	<map>
+	<vector>
 
-1560395455 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\abre_arquivo.h
+1560433575 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\maqbusca.cpp
+	"MaqBusca.h"
+
+1560432138 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\maqbusca.h
 	<iostream>
 	<fstream>
 	<string>
