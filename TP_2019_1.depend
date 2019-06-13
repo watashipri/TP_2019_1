@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1560433064 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\main.cpp
+1560440140 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\main.cpp
 	<iostream>
 	"MaqBusca.h"
 
@@ -16,14 +16,15 @@
 	<map>
 	<vector>
 
-1560433575 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\maqbusca.cpp
+1560439910 source:c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\src\maqbusca.cpp
 	"MaqBusca.h"
 
-1560432138 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\maqbusca.h
+1560439131 c:\users\prisc\dropbox\estudos\ufmg\2019-1\pds2\tp\tp_2019_1\include\maqbusca.h
 	<iostream>
 	<fstream>
 	<string>
 	<cmath>
+	<iomanip>
 	<cctype>
 	<algorithm>
 	<map>

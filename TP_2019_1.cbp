@@ -33,9 +33,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="$(#boost.include)" />
 		</Compiler>
+		<Linker>
+			<Add directory="$(#boost.lib)" />
+		</Linker>
 		<Unit filename="include/MaqBusca.h" />
-		<Unit filename="include/doctest.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/MaqBusca.cpp" />
 		<Extensions>

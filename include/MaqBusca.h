@@ -6,6 +6,7 @@
 
 #include <string>
 #include <cmath>
+#include <iomanip>
 
 #include <cctype>
 #include <algorithm>
@@ -25,6 +26,8 @@ using std::vector;
 using std::pair;
 using std::sqrt;
 using std::pow;
+using std::setprecision;
+using std::fixed;
 
 class MaqBusca{
     public:

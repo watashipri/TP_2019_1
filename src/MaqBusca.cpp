@@ -59,7 +59,6 @@ string MaqBusca::Tratamento(string palavra){
     palavra.erase(remove_if(palavra.begin(), palavra.end(), [](char c){ return c==','||c=='.'|| c=='!'||
                             c=='-'|| c=='?'||c== ':' ||c== ';' ||c== 39 ||c== '[' ||c== ']' ||c== '{' ||c== '}' ||
                             c== '<' ||c== '>' ||c== '(' ||c== ')' ||c== '*' ||c== '%'||c== '&'; }), palavra.end());
-
     return palavra;
 }
 
@@ -146,8 +145,9 @@ void MaqBusca::Coordenadas(string palavra, int ndocs){
     cout << "Docs " << ndocs << endl;
 
     double idf;
-    idf = log10(N/ndocs);
+    idf = log(N/ndocs);
 
+    cout << setprecision(2) << fixed;
     cout << "log: " << idf << endl;
 
     // coordenadas de um vetor
@@ -161,7 +161,7 @@ double MaqBusca::Ranking(){
     double cosseno;
 
     cosseno = (coordenadaW * coordenadaW) / (sqrt((pow(coordenadaW,2)))*sqrt((pow(coordenadaW,2))));
-    cout << "Coordenada: " << coordenadaW << endl;
+    cout << "Similaridade: " << cosseno << endl;
 
     return coordenadaW;
 }
