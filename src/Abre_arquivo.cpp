@@ -61,12 +61,24 @@ void Abre_arquivo::ListaDocumentos(){
     string palavra;
     string palavra_tratada;
 
-    int i = 1;
+//    vector<string> vetor_teste;
+    vector<string>::iterator it;
 
     while (leitura >> palavra){
         palavra_tratada = A.Tratamento(palavra);
 
-        indiceinvertido.insert(pair<string, string>(palavra_tratada, "doc1"));
+        // testa se a palavra existe no indice, se nao, adiciona
+        if (indiceinvertido.find(palavra_tratada) == indiceinvertido.end()){
+                indiceinvertido[palavra_tratada].push_back(nomearquivo_);
+        } else { // palavra ja existe
+            it = find(indiceinvertido[palavra_tratada].begin(), indiceinvertido[palavra_tratada].end(), nomearquivo_);
+
+            // testa se o arquivo ja foi adicionado
+            if (it == indiceinvertido[palavra_tratada].end()){
+                indiceinvertido[palavra_tratada].push_back(nomearquivo_);
+
+            }
+        }
 
         if (contagempalavra.find(palavra_tratada) == contagempalavra.end()){
             contagempalavra[palavra_tratada] = 1;
@@ -75,7 +87,7 @@ void Abre_arquivo::ListaDocumentos(){
         }
     }
 //    A.ImprimirMap(contagempalavra);
-//    A.ImprimirMap(indiceinvertido);
+    A.ImprimirMap(indiceinvertido);
 
 }
 
@@ -85,23 +97,32 @@ void Abre_arquivo::ImprimirMap(map<string,int> m){
     }
 }
 
-void Abre_arquivo::ImprimirMap(map<string,string> m){
-    for (auto itr = m.begin(); itr != m.end(); ++itr) {
-        cout << itr->first << '\t' << itr->second << '\n';
-    }
+void Abre_arquivo::ImprimirMap(map<string,vector<string>> m){
+        for( auto itr = m.begin(); itr != m.end(); ++itr) {
+            cout << itr->first << ": ";
+            for( auto eptr=itr->second.begin(); eptr!=itr->second.end(); eptr++){
+                cout << *eptr << " ";
+            }
+            cout << endl;
+        }
 }
 
 void Abre_arquivo::Pesquisa(string palavra){
-    map<string,string>::iterator it;
+    map<string,vector<string>>::iterator it;
 
     it = indiceinvertido.find(palavra);
     if (it->first == palavra){
-        cout << "Documento " << it->second << endl;
+        cout << "Documentos: " << endl;
+        for( auto eptr=it->second.begin(); eptr!=it->second.end(); eptr++){
+                cout << *eptr << " " << endl;
+        }
     } else {
         cout << "Palavra nao encontrada" << endl;
     }
 }
 
+
+//Teste de abertura de arquivo
 void Abre_arquivo::Coordenadas(string palavra){
     int N;
     map<string,int>::iterator it;
@@ -114,14 +135,23 @@ void Abre_arquivo::Coordenadas(string palavra){
     int ndocs;
     ndocs = 1;
 
-    float idf;
+    double idf;
     idf = log10(N/ndocs);
 
-    cout << "log estranho " << idf << endl;
+    cout << "log: " << idf << endl;
 
     // coordenadas de um vetor
-    float W;
-    W = (N * idf);
+//    double coordenadaW;
+    coordenadaW = (N * idf);
 
-    cout << "W esquisito " << W << endl;
+    cout << "W: " << coordenadaW << endl;
+}
+
+double Abre_arquivo::Ranking(){
+    double cosseno;
+
+    cosseno = (coordenadaW * coordenadaW) / (sqrt((pow(coordenadaW,2)))*sqrt((pow(coordenadaW,2))));
+    cout << "Coordenada: " << coordenadaW << endl;
+    return 1;
+
 }

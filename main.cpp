@@ -6,7 +6,17 @@ using namespace std;
 int main(){
 
     Abre_arquivo A;
-    A.Abrearquivo();
+
+    int qtd_arquivos;
+    cout << "Quantos arquivos deseja abrir?" << endl;
+    cin >> qtd_arquivos;
+
+    for(int i = 1; i <= qtd_arquivos; i++){
+        A.Abrearquivo();
+        A.ListaDocumentos();
+
+        A.Fechaaquivo();
+    }
 //    A.Contagemlinhas();
 //    A.Getlinhas();
 
@@ -15,16 +25,18 @@ int main(){
 //    cin>>palavra;
 //    A.Tratamento(palavra);
 
-    A.ListaDocumentos();
+
 
     cout << "palavra buscada:" << endl;
     string palavra_user;
     cin >> palavra_user;
-//    A.Pesquisa(palavra_user);
+    A.Pesquisa(palavra_user);
+//
+//    A.Coordenadas(palavra_user);
+//
+//    A.Ranking();
 
-    A.Coordenadas(palavra_user);
 
-    A.Fechaaquivo();
 
     return 0;
 }
